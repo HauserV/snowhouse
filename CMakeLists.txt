@@ -63,4 +63,3 @@ if (SNOWHOUSE_BUILD_TESTS AND SNOWHOUSE_RUN_TESTS)
 elseif (SNOWHOUSE_RUN_TESTS)
     message(WARNING "Unable to run snowhouse tests - set:\n  option(SNOWHOUSE_BUILD_TESTS, \"Build the Snowhouse tests\" ON)\nand clear your CMakeCache.txt")
 endif()
-

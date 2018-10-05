@@ -6,7 +6,7 @@
 #ifndef SNOWHOUSE_COLLECTIONOPERATOR_H
 #define SNOWHOUSE_COLLECTIONOPERATOR_H
 
-#include "../../operators/constraintoperator.h"
+#include "../constraintoperator.h"
 
 namespace snowhouse
 {
