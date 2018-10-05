@@ -16,7 +16,7 @@ git submodule add -b headers-only https://github.com/banditcpp/snowhouse snowhou
 git submodule update --init --recursive
 ```
 
-CMake users can use the provided library target:
+CMake (>= 3.0) users can use the provided library target:
 ```CMake
 shell$ git clone https://github.com/banditcpp/snowhouse.git
 
