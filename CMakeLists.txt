@@ -1,13 +1,19 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(snowhouse)
+project(include/snowhouse)
 
-option(SNOWHOUSE_BUILD_TESTS    "Build the Snowhouse tests"                 ON)
-option(SNOWHOUSE_RUN_TESTS      "Run the Snowhouse tests"                   ON)
+option(SNOWHOUSE_BUILD_TESTS    "Build the Snowhouse tests"                 OFF)
+option(SNOWHOUSE_RUN_TESTS      "Run the Snowhouse tests"                   OFF)
 set(SNOWHOUSE_CXX_STANDARD "C++03" CACHE STRING "The C++ standard the examples are compiled with")
 set_property(CACHE SNOWHOUSE_CXX_STANDARD PROPERTY STRINGS "C++98" "C++03" "C++11" "C++14")
 
-include_directories("${PROJECT_SOURCE_DIR}")
+add_library(snowhouse INTERFACE)
+if (NOT CMAKE_VERSION VERSION_LESS 2.8.11)
+    target_include_directories(snowhouse INTERFACE include)
+else()
+    include_directories("${PROJECT_SOURCE_DIR}/include")
+endif()
+
 
 if(SNOWHOUSE_CXX_STANDARD STREQUAL "C++98")
   set(std_name "c++98")
@@ -45,6 +51,7 @@ message(STATUS "C++ compiler flags: ${CMAKE_CXX_FLAGS}")
 if (SNOWHOUSE_BUILD_TESTS)
     FILE(GLOB SnowhouseSpecSourceFiles example/*.cpp)
     add_executable(snowhouse-tests ${SnowhouseSpecSourceFiles})
+    target_link_libraries(snowhouse-tests PRIVATE snowhouse)
 endif()
 
 if (SNOWHOUSE_BUILD_TESTS AND SNOWHOUSE_RUN_TESTS)
@@ -55,3 +62,4 @@ if (SNOWHOUSE_BUILD_TESTS AND SNOWHOUSE_RUN_TESTS)
 elseif (SNOWHOUSE_RUN_TESTS)
     message(WARNING "Unable to run snowhouse tests - set:\n  option(SNOWHOUSE_BUILD_TESTS, \"Build the Snowhouse tests\" ON)\nand clear your CMakeCache.txt")
 endif()
+
